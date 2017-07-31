@@ -1,6 +1,19 @@
 {
     "name": "wilbertjoosen/keycloak-php",
     "description": "Laravel/Lumen keycloak API consumer",
+    "keywords": [
+        "laravel",
+        "lumen",
+        "security",
+        "keycloak",
+        "api"
+    ],
+    "type": "package",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/wilbertjoosen/keycloak-php/issues",
+        "source": "https://github.com/wilbertjoosen/keycloak-php"
+    },
     "authors": [
         {
             "name": "Wilbert de Almeida Joosen",
@@ -8,5 +21,30 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/http": "5.4.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.0",
+        "mockery/mockery": "~0.9.4",
+        "orchestra/testbench": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "WilbertJoosen\\KeycloakPHP\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WilbertJoosen\\KeycloakPHP\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "WilbertJoosen\\KeycloakPHP\\Provider\\KeycloakPHPServiceProvider"
+            ]
+        }
+    }
 }
