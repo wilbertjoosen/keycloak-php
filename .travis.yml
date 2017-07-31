@@ -9,4 +9,4 @@ services:
   - docker
 before_script:
   - composer self-update
-  - docker run d -p 127.0.0.1:8080:8080 -e KEYCLOAK_USER=admin KEYCLOAK_PASSWORD=admin jboss/keycloak
+  - docker run -d -p 127.0.0.1:8080:8080 -e KEYCLOAK_USER=admin KEYCLOAK_PASSWORD=admin jboss/keycloak
