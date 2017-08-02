@@ -1,12 +1,16 @@
 {
     "name": "wilbertjoosen/keycloak-php",
-    "description": "Laravel/Lumen keycloak API consumer",
+    "description": "Laravel/Lumen Provider and keycloak API consumer",
     "keywords": [
         "laravel",
         "lumen",
         "security",
         "keycloak",
-        "api"
+        "api",
+        "php",
+        "provider",
+        "auth",
+        "acl"
     ],
     "type": "package",
     "license": "MIT",
@@ -23,7 +27,8 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.5.9",
-        "illuminate/http": "5.4.*"
+        "illuminate/http": "5.4.*",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.0",
