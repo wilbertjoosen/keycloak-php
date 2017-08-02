@@ -1,13 +1,15 @@
 <?php
 namespace WilbertJoosen\KeycloakPHP\Keycloak\Service\Factory;
 
+use Illuminate\Http\Request;
 use WilbertJoosen\KeycloakPHP\Exception\ServiceException;
 
 class ServiceFactory
 {
-    private function __construct()
+    public static $request;
+    public function __construct(Request $request)
     {
-
+        self::$request = $request;
     }
 
     /**
@@ -17,10 +19,10 @@ class ServiceFactory
      * @throws \Exception
      */
     public static function build($business){
-        $className = __NAMESPACE__.$business.'Service';
+        $className = str_replace('Factory','',__NAMESPACE__.$business.'Service');
 
         if(class_exists($className)){
-            return new $className();
+            return new $className(self::$request);
         }
         throw new ServiceException('Class not found');
     }

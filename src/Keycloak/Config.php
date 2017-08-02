@@ -1,25 +1,23 @@
 <?php
 
-namespace WilbertJoosen\KeycloakPHP\Traits;
+namespace WilbertJoosen\KeycloakPHP\Keycloak;
 
 use Illuminate\Support\Facades\Config as IlluminateConfig;
+use WilbertJoosen\KeycloakPHP\Traits\Singleton;
 
-trait Config
+class Config
 {
     use Singleton;
 
     protected $config;
-    protected $url;
-    protected $token;
-    protected $connection;
+    public $request;
 
-    public function __construct(array $data)
+    public function setParams(array $data = NULL)
     {
         $this->config = [
             'host' => self::_resolveParam($data, 'host'),
-            'url' => $this->url,
-            'token' => $this->token,
-            'connection' => is_null($this->connection) ? 'default' : $this->connection,
+            'token' => $this->request->bearerToken(),
+            'connection' => !isset($data['connection']) ? 'default' : $data['connection'],
 
             //Used only if consumed endpoint is service account or specific user
             'grant_type' => self::_resolveParam($data, 'grant_type'),
@@ -28,6 +26,11 @@ trait Config
             'client_id' => self::_resolveParam($data, 'client_id'),
             'client_secret' => self::_resolveParam($data, 'client_secret'),
         ];
+    }
+
+    public function getParams()
+    {
+        return $this->config;
     }
 
     private static function _resolveParam($data, $param)

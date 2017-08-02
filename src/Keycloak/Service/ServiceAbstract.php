@@ -5,21 +5,32 @@ namespace WilbertJoosen\KeycloakPHP\Keycloak\Service;
 use WilbertJoosen\KeycloakPHP\Exception\ServiceException;
 use WilbertJoosen\KeycloakPHP\Keycloak\Consumer\Factory\ConsumerFactory;
 use WilbertJoosen\KeycloakPHP\Keycloak\Service\Contracts\ServiceContract;
+use WilbertJoosen\KeycloakPHP\Keycloak\Config;
 
 abstract class ServiceAbstract implements ServiceContract
 {
-    protected $service;
     protected $keycloakConsumer;
+    protected $params;
+    protected $url;
+    private $config;
 
-    public function __construct()
+    public function __construct($request)
     {
-        $this->keycloakConsumer = ConsumerFactory::build($this->service);
+       $this->config = Config::getInstance();
+       $this->config->request = $request;
+       $this->config->setParams();
+    }
+
+    public function setConnection($connection = NULL)
+    {
+        $this->config->setParams(['connection' => $connection]);
+        return $this;
     }
 
     public function find($idx)
     {
         try{
-            return $this->keycloakConsumer->find($idx);
+            return ConsumerFactory::build($this->keycloakConsumer)->url($this->url)->params($this->params)->find($idx);
         }catch (\Exception $exception){
             throw new ServiceException($exception->getMessage(), $exception->getCode());
         }

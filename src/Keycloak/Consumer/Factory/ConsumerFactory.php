@@ -5,19 +5,14 @@ use WilbertJoosen\KeycloakPHP\Exception\ConsumerException;
 
 class ConsumerFactory
 {
-    private function __construct()
-    {
-
-    }
-
     /**
-     * @param $business
+     * @param $consumer
      *
      * @return mixed
      * @throws \Exception
      */
-    public static function build($business){
-        $className = __NAMESPACE__.$business.'Consumer';
+    public static function build($consumer){
+        $className =str_replace('Factory','',__NAMESPACE__.$consumer.'Consumer');
 
         if(class_exists($className)){
             return new $className();
